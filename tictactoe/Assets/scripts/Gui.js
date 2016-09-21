@@ -1,6 +1,5 @@
 ﻿#pragma strict
 //import System.Collections.Generic;
-import UnityEngine;
 
 var heart : Transform;
 var heartArray = new Array();
@@ -19,7 +18,7 @@ function DisplayHearts(numHearts) {
     y++;
     Debug.Log("y =  " + y + " and type: " + typeof y);
     Debug.Log("numHearts =  " + numHearts + " and type: " + typeof numHearts);
-    Debug.Log(y < numHearts);
+    Debug.Log( y < System.Convert.ToInt32( numHearts ) );
     for(var x = 0; x < 5; x++) {
      //   heartArray[x].transform.GetChild(0);
     }

@@ -54,7 +54,7 @@ function OnCollisionEnter2D (coll : Collision2D) {
         numJumps = 0;
     }
     if(coll.gameObject.CompareTag("Enemy")) {
-        numHearts -=1;;
+        numHearts -=1;
         Gui.DisplayHearts(numHearts);
         Alive();
 
