@@ -1,25 +1,32 @@
 ﻿#pragma strict
-//import System.Collections.Generic;
+import System.Collections.Generic;
 
 var heart : Transform;
-var heartArray = new Array();
+var heartArray = new ArrayList(); 
+var stuff :Transform;
+function SpawnHearts(maxHeartsObject) {
+    var maxHearts = System.Convert.ToInt32( maxHeartsObject );
+    Debug.Log("maxHearts = " + maxHearts);
 
-function SpawnHearts(maxHearts) {
-    for (var x = 0; x < 5; x++) {
+    for (var x = 0; x < maxHearts; x++) {
+        Debug.Log(x);
         heart = Instantiate(heart, Vector3 (x,this.transform.position.y, 0), Quaternion.identity);
         heart.transform.parent = this.transform;
         heart.name = "heartContainer";
-        heartArray[x] = heart;
+      //  heartArray[x] = heart; //        heartArray.Add(heart);
+        Debug.Log(heart.name);
+        stuff = heart;
+        Debug.Log("heart.GetType = " + heart.GetType);
     }
 }
 
-function DisplayHearts(numHearts) {
-    var y = 0;
-    y++;
-    Debug.Log("y =  " + y + " and type: " + typeof y);
-    Debug.Log("numHearts =  " + numHearts + " and type: " + typeof numHearts);
-    Debug.Log( y < System.Convert.ToInt32( numHearts ) );
-    for(var x = 0; x < 5; x++) {
-     //   heartArray[x].transform.GetChild(0);
+function DisplayHearts(numHeartsObject) {
+    var numHearts = System.Convert.ToInt32( numHeartsObject );
+    
+    Debug.Log("numHearts =  " + numHearts);
+    for(var x = 0; x < numHearts; x++) {
+       // Debug.Log(heartArray[0].name);
+        Debug.Log(stuff.name);
+        //var heart = heartArray[x].GetComponentsInChildren.<SpriteRenderer>();
     }
 }
