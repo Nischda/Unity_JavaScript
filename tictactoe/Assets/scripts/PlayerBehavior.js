@@ -61,6 +61,7 @@ function OnCollisionEnter2D (coll : Collision2D) {
     }
 }
 
+
 function CanJump() {
     return numJumps < maxJumps;
 }
