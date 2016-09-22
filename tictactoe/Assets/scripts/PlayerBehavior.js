@@ -9,6 +9,8 @@ private var numJumps = 0; // number of current jumps
 private var facingRight = true; // initially sprite faces to the right
 private var numHearts = 0;
 
+private var x;
+private var y;
 var Gui : Gui;
 
 function Start () {
@@ -17,50 +19,43 @@ function Start () {
 }
 
 function Update () {
-    var x;
-    var y;
-	
+
     if (Input.GetKeyDown(KeyCode.Space) && CanJump()) {
-        x = GetComponent(Rigidbody2D).velocity.x;
-		
-        GetComponent(Rigidbody2D).velocity = new Vector2(x, jumpHeight);
-		
+        Jump();
         ++numJumps;
     }
 	
     if (Input.GetKey (KeyCode.A)) {
-        y = GetComponent(Rigidbody2D).velocity.y;
-		
-        GetComponent(Rigidbody2D).velocity = new Vector2(-moveSpeed, y);
-		
-        if (facingRight) {
-            Flip();
-        }
+        WalkLeft();
     }
 	
     if (Input.GetKey (KeyCode.D)) {
-        y = GetComponent(Rigidbody2D).velocity.y;
-		
-        GetComponent(Rigidbody2D).velocity = new Vector2(moveSpeed, y);
-		
-        if (!facingRight) {
-            Flip();
-        }
+        WalkRight();
     }
 }
 
-function OnCollisionEnter2D (coll : Collision2D) {
-    if (coll.gameObject.CompareTag("Ground")) {
-        numJumps = 0;
-    }
-    if(coll.gameObject.CompareTag("Enemy")) {
-        numHearts -=1;
-        Gui.DisplayHearts(numHearts);
-        Alive();
+function Jump() {
+    x = GetComponent(Rigidbody2D).velocity.x;
+    GetComponent(Rigidbody2D).velocity = new Vector2(x, jumpHeight);
+}
 
+function WalkLeft() {
+    y = GetComponent(Rigidbody2D).velocity.y;
+    GetComponent(Rigidbody2D).velocity = new Vector2(-moveSpeed, y);
+		
+    if (facingRight) {
+        Flip();
     }
 }
 
+function WalkRight() {
+    y = GetComponent(Rigidbody2D).velocity.y;
+    GetComponent(Rigidbody2D).velocity = new Vector2(moveSpeed, y);
+		
+    if (!facingRight) {
+        Flip();
+    }
+}
 
 function CanJump() {
     return numJumps < maxJumps;
@@ -89,4 +84,19 @@ function Alive() {
 
 function GameOver() {
     SceneManager.LoadScene("menu");
+}
+
+function OnCollisionEnter2D (coll : Collision2D) {
+    if (coll.gameObject.CompareTag("Ground")) {
+        numJumps = 0;
+    }
+    if(coll.gameObject.CompareTag("Enemy")) {
+        numHearts -=1;
+        Gui.DisplayHearts(numHearts);
+        Alive();
+        Jump();
+    }
+    if(coll.gameObject.CompareTag("Monster")) {;
+        Jump();
+    }
 }
