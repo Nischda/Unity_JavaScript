@@ -35,6 +35,10 @@ function Update () {
     if (Input.GetKey (KeyCode.D)) {
         WalkRight();
     }
+
+    if (Input.GetKey (KeyCode.E)) {
+        Instantiate(this, Vector3 (this.transform.position.x,this.transform.position.y, 0), Quaternion.identity);
+    }
 }
 
 function Jump() {
