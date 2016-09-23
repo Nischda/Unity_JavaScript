@@ -11,7 +11,10 @@ private var numHearts = 0;
 
 private var x;
 private var y;
+private var timeStamp : float;
+
 var Gui : Gui;
+var animator : Animator;
 
 function Start () {
     numHearts = maxHearts;
@@ -37,6 +40,7 @@ function Update () {
 function Jump() {
     x = GetComponent(Rigidbody2D).velocity.x;
     GetComponent(Rigidbody2D).velocity = new Vector2(x, jumpHeight);
+    animator.SetTrigger("OnJump");
 }
 
 function WalkLeft() {
@@ -89,14 +93,25 @@ function GameOver() {
 function OnCollisionEnter2D (coll : Collision2D) {
     if (coll.gameObject.CompareTag("Ground")) {
         numJumps = 0;
+        ChangeColor(1,1,1,1);
     }
     if(coll.gameObject.CompareTag("Enemy")) {
-        numHearts -=1;
-        Gui.DisplayHearts(numHearts);
-        Alive();
+        ChangeColor(0.6, 0, 0, 1);
         Jump();
+
+        if (timeStamp <= Time.time) {
+            numHearts -=1;
+            Gui.DisplayHearts(numHearts);
+            Alive();
+            timeStamp = Time.time +1.5;
+        }
     }
     if(coll.gameObject.CompareTag("Monster")) {;
         Jump();
     }
+}
+
+function ChangeColor(r,g,b,a) {
+    var renderer = gameObject.GetComponent(SpriteRenderer); //somehow move into global variables or access component directly
+    renderer.color = new Color(r,g,b,a);
 }
