@@ -4,10 +4,12 @@ public var jumpHeight = 0;
 public var moveSpeed = 0;
 public var maxJumps = 0; // maximum number of jumps
 public var maxHearts = 0;
+public var maxPlayerBlocks = 0;
 
 private var numJumps = 0; // number of current jumps
 private var facingRight = true; // initially sprite faces to the right
 private var numHearts = 0;
+private var numPlayerBlocks = 0;
 
 private var x;
 private var y;
@@ -15,10 +17,13 @@ private var timeStamp : float;
 
 var Gui : Gui;
 var animator : Animator;
+var playerBlock: Transform;
 
 function Start () {
     numHearts = maxHearts;
-    Gui.SpawnHearts(maxHearts);
+    Gui.DisplayHearts(maxHearts);
+    numPlayerBlocks = maxPlayerBlocks;
+    Gui.DisplayPlayerBlocks(maxPlayerBlocks);
 }
 
 function Update () {
@@ -37,10 +42,15 @@ function Update () {
     }
 
     if (Input.GetKey (KeyCode.E)) {
-        Instantiate(this, Vector3 (this.transform.position.x,this.transform.position.y, 0), Quaternion.identity);
+        if(numPlayerBlocks > 0 ) {
+            if (timeStamp <= Time.time) {
+                timeStamp = Time.time +0.15;
+                SpawnBlock();
+            }
+        }
     }
 }
-
+//Actions
 function Jump() {
     x = GetComponent(Rigidbody2D).velocity.x;
     GetComponent(Rigidbody2D).velocity = new Vector2(x, jumpHeight);
@@ -69,7 +79,13 @@ function CanJump() {
     return numJumps < maxJumps;
 }
 
-// flip sprite along x-axis
+function SpawnBlock() {
+    Instantiate(playerBlock, Vector3 (this.transform.position.x +1, this.transform.position.y, 0), Quaternion.identity );
+    numPlayerBlocks -= 1;
+}
+
+
+//Passive
 function Flip() {
     var flipScale : Vector3;
     var rigidbody : Rigidbody2D;
