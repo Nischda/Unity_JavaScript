@@ -6,14 +6,14 @@ public var maxJumps = 0; // maximum number of jumps
 public var maxHearts = 0;
 public var maxPlayerBlocks = 0;
 
-private var numJumps = 0; // number of current jumps
 private var facingRight = true; // initially sprite faces to the right
+private var numJumps = 0; // number of current jumps
 private var numHearts = 0;
 private var numPlayerBlocks = 0;
 
 private var x;
 private var y;
-private var timeStamp : float;
+private var timeStamp : float; // wonder if multiple use of timeStamp leads to shared cooldowns
 
 var Gui : Gui;
 var animator : Animator;
@@ -82,6 +82,7 @@ function CanJump() {
 function SpawnBlock() {
     Instantiate(playerBlock, Vector3 (this.transform.position.x +1, this.transform.position.y, 0), Quaternion.identity );
     numPlayerBlocks -= 1;
+    Gui.DisplayPlayerBlocks(numPlayerBlocks);
 }
 
 
@@ -111,7 +112,7 @@ function GameOver() {
 }
 
 function OnCollisionEnter2D (coll : Collision2D) {
-    if (coll.gameObject.CompareTag("Ground")) {
+    if (coll.gameObject.CompareTag("Ground") || coll.gameObject.CompareTag("PlayerBlock")) {
         numJumps = 0;
         ChangeColor(1,1,1,1);
     }
@@ -134,4 +135,11 @@ function OnCollisionEnter2D (coll : Collision2D) {
 function ChangeColor(r,g,b,a) {
     var renderer = gameObject.GetComponent(SpriteRenderer); //somehow move into global variables or access component directly
     renderer.color = new Color(r,g,b,a);
+}
+  
+//Get / Set
+function IncrementNumPlayerBlocks(valueObject) {
+    var value = System.Convert.ToInt32(valueObject);
+    numPlayerBlocks += value;
+    Gui.DisplayPlayerBlocks(numPlayerBlocks);
 }
