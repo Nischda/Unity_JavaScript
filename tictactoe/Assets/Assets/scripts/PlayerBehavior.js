@@ -80,7 +80,8 @@ function CanJump() {
 }
 
 function SpawnBlock() {
-    Instantiate(playerBlock, Vector3 (this.transform.position.x +1, this.transform.position.y, 0), Quaternion.identity );
+	var offset = facingRight ? 1 : -1;
+    Instantiate(playerBlock, Vector3 (this.transform.position.x + offset, this.transform.position.y, 0), Quaternion.identity );
     numPlayerBlocks -= 1;
     Gui.DisplayPlayerBlocks(numPlayerBlocks);
 }
