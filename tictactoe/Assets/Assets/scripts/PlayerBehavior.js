@@ -5,6 +5,7 @@ public var moveSpeed = 0;
 public var maxJumps = 0; // maximum number of jumps
 public var maxHearts = 0;
 public var maxPlayerBlocks = 0;
+public var activePlayerBlock = "";
 
 private var facingRight = true; // initially sprite faces to the right
 private var numJumps = 0; // number of current jumps
@@ -17,7 +18,8 @@ private var timeStamp : float; // wonder if multiple use of timeStamp leads to s
 
 var Gui : Gui;
 var animator : Animator;
-var playerBlock: Transform;
+var staticPlayerBlock: Transform;
+var flyingPlayerBlock: Transform;
 
 function Start () {
     numHearts = maxHearts;
@@ -80,12 +82,16 @@ function CanJump() {
 }
 
 function SpawnBlock() {
-<<<<<<< HEAD
-    Instantiate(playerBlock, Vector3 (this.transform.position.x +1, this.transform.position.y, 2), Quaternion.identity );
-=======
-	var offset = facingRight ? 1 : -1;
-    Instantiate(playerBlock, Vector3 (this.transform.position.x + offset, this.transform.position.y, 0), Quaternion.identity );
->>>>>>> 2da23468a437194d7e5c42feabd52768927497c8
+    switch(activePlayerBlock) {
+        case "static":
+            Instantiate(staticPlayerBlock, Vector3 (this.transform.position.x +1, this.transform.position.y, 2), Quaternion.identity );
+   
+            break;
+        case "flying":
+            Instantiate(flyingPlayerBlock, Vector3 (this.transform.position.x +1, this.transform.position.y, 2), Quaternion.identity );
+   
+            break;
+    } 
     numPlayerBlocks -= 1;
     Gui.DisplayPlayerBlocks(numPlayerBlocks);
 }
