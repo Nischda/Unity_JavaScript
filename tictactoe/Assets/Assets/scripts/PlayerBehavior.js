@@ -82,13 +82,14 @@ function CanJump() {
 }
 
 function SpawnBlock() {
+	var offset = facingRight ? 1 : -1;
     switch(activePlayerBlock) {
         case "static":
-            Instantiate(staticPlayerBlock, Vector3 (this.transform.position.x +1, this.transform.position.y, 2), Quaternion.identity );
+            Instantiate(staticPlayerBlock, Vector3 (this.transform.position.x + offset, this.transform.position.y, 2), Quaternion.identity );
    
             break;
         case "flying":
-            Instantiate(flyingPlayerBlock, Vector3 (this.transform.position.x +1, this.transform.position.y, 2), Quaternion.identity );
+            Instantiate(flyingPlayerBlock, Vector3 (this.transform.position.x + offset, this.transform.position.y, 2), Quaternion.identity );
    
             break;
     } 
