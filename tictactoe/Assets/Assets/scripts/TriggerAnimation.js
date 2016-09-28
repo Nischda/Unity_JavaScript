@@ -11,11 +11,5 @@ function OnTriggerEnter2D(Other : Collider2D){
             animator.ResetTrigger("OnHit");
         }
 
-        if(this.gameObject.tag == "Monster") {
-            yield WaitForSeconds (0.5);
-            transform.parent.gameObject.GetComponent(BoxCollider2D).enabled=false;
-            Destroy (transform.parent.gameObject, 1);
-        }
     }
-
 }

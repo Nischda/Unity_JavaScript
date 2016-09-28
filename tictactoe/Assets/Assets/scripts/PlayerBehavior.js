@@ -142,6 +142,9 @@ function OnCollisionEnter2D (coll : Collision2D) {
     if(coll.gameObject.CompareTag("Monster")) {;
         Jump();
     }
+    if(coll.gameObject.CompareTag("Dead")) {;
+        Jump();
+    }
 }
 
 function ChangeColor(r,g,b,a) {
