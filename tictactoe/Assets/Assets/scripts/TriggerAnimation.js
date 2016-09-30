@@ -2,7 +2,7 @@
 
 function OnTriggerEnter2D(Other : Collider2D){
      
-    if(Other.gameObject.name == "Player"){
+    if(Other.gameObject.tag == "Player" || Other.gameObject.tag == "PlayerBlock"){
 
         animator.SetTrigger("OnHit");
 

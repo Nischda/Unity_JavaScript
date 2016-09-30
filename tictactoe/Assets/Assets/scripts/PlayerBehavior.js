@@ -12,15 +12,15 @@ private var numJumps = 0; // number of current jumps
 private var numHearts = 0;
 private var numPlayerBlocks = 0;
 
-private var x;
-private var y;
+private var x : float;
+private var y : float;
 private var timeStamp : float; // wonder if multiple use of timeStamp leads to shared cooldowns
 
 var Gui : Gui;
 var animator : Animator;
 var staticPlayerBlock: Transform;
 var flyingPlayerBlock: Transform;
-
+var flipScale : Vector3;
 function Start () {
     numHearts = maxHearts;
     Gui.DisplayHearts(maxHearts);
@@ -100,17 +100,15 @@ function SpawnBlock() {
 
 //Passive
 function Flip() {
-    var flipScale : Vector3;
     var rigidbody : Rigidbody2D;
-	
     rigidbody = GetComponent(Rigidbody2D);
 	
     flipScale = rigidbody.transform.localScale;
-    flipScale.x *= -1; // flip horizontally
-	
+    flipScale.x *= -1; // what does this even do?
+    //GetComponent(SpriteRenderer).flipX = facingRight;
     rigidbody.transform.localScale = flipScale;
-	
-    facingRight = !facingRight; // facing opposite direction
+    Debug.Log(facingRight);
+    facingRight = !facingRight; 
 }
 
 function Alive() {
