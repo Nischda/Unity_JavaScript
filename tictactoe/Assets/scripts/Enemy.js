@@ -50,11 +50,11 @@ function Flip() {
 
 function OnTriggerEnter2D(Other : Collider2D){
      
-    if(Other.gameObject.name == "Player"){
+    if(Other.gameObject.tag == "Player" || Other.gameObject.tag == "GlobalDmg"){
 
         child.GetComponent(Animator).SetTrigger("OnHit");
         gameObject.tag = "Dead";
-        yield WaitForSeconds (0.5);
+        yield WaitForSeconds (0.1);
         gameObject.GetComponent(BoxCollider2D).enabled=false;
         Destroy (gameObject, 1);
     }

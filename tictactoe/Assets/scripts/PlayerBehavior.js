@@ -17,8 +17,9 @@ private var timeStamp : float; // wonder if multiple use of timeStamp leads to s
 
 var Gui : Gui;
 var animator : Animator;
-var staticPlayerBlock: Transform;
-var flyingPlayerBlock: Transform;
+var playerBlock_Static: Transform;
+var playerBlock_Flying: Transform;
+var playerBlock_Spiked: Transform;
 var flipScale : Vector3;
 
 function Start () {
@@ -87,12 +88,15 @@ function SpawnBlock() {
 	var offset = facingRight ? 0.5 : -0.5;
     switch(activePlayerBlock) {
         case "static":
-            Instantiate(staticPlayerBlock, Vector3 (this.transform.position.x + offset, this.transform.position.y, 2), Quaternion.identity );
-   
+            Instantiate(playerBlock_Static, Vector3 (this.transform.position.x + offset, this.transform.position.y, 2), Quaternion.identity );
             break;
+
         case "flying":
-            Instantiate(flyingPlayerBlock, Vector3 (this.transform.position.x + offset, this.transform.position.y, 2), Quaternion.identity );
-   
+            Instantiate(playerBlock_Flying, Vector3 (this.transform.position.x + offset, this.transform.position.y, 2), Quaternion.identity );
+            break;
+
+        case "spiked":
+            Instantiate(playerBlock_Spiked, Vector3 (this.transform.position.x + offset, this.transform.position.y, 2), Quaternion.identity );
             break;
     } 
     numPlayerBlocks -= 1;
@@ -127,7 +131,7 @@ function OnCollisionEnter2D (coll : Collision2D) {
         numJumps = 0;
         ChangeColor(1,1,1,1);
     }
-    if(coll.gameObject.CompareTag("Enemy")) {
+    if(coll.gameObject.CompareTag("Enemy") || coll.gameObject.CompareTag("GlobalDmg")) {
         ChangeColor(0.6, 0, 0, 1);
         Jump();
 
