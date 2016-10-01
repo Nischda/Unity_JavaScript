@@ -2,16 +2,15 @@
 
 public var jumpHeight = 0;
 public var moveSpeed = 0;
-public var maxJumps = 0; // maximum number of jumps
+public var maxJumps = 0; 
 public var maxHearts = 0;
 public var maxPlayerBlocks = 0;
 public var activePlayerBlock = "";
 
-private var facingRight = true; // initially sprite faces to the right
-private var numJumps = 0; // number of current jumps
+private var facingRight = true; 
+private var numJumps = 0;
 private var numHearts = 0;
 private var numPlayerBlocks = 0;
-
 private var x : float;
 private var y : float;
 private var timeStamp : float; // wonder if multiple use of timeStamp leads to shared cooldowns
@@ -21,7 +20,9 @@ var animator : Animator;
 var staticPlayerBlock: Transform;
 var flyingPlayerBlock: Transform;
 var flipScale : Vector3;
+
 function Start () {
+
     numHearts = maxHearts;
     Gui.DisplayHearts(maxHearts);
     numPlayerBlocks = maxPlayerBlocks;
@@ -52,6 +53,7 @@ function Update () {
         }
     }
 }
+
 //Actions
 function Jump() {
     x = GetComponent(Rigidbody2D).velocity.x;
@@ -82,7 +84,7 @@ function CanJump() {
 }
 
 function SpawnBlock() {
-	var offset = facingRight ? 1 : -1;
+	var offset = facingRight ? 0.5 : -0.5;
     switch(activePlayerBlock) {
         case "static":
             Instantiate(staticPlayerBlock, Vector3 (this.transform.position.x + offset, this.transform.position.y, 2), Quaternion.identity );
@@ -104,10 +106,9 @@ function Flip() {
     rigidbody = GetComponent(Rigidbody2D);
 	
     flipScale = rigidbody.transform.localScale;
-    flipScale.x *= -1; // what does this even do?
-    //GetComponent(SpriteRenderer).flipX = facingRight;
+    flipScale.x *= -1; 
+    GetComponent(SpriteRenderer).flipX = facingRight;
     rigidbody.transform.localScale = flipScale;
-    Debug.Log(facingRight);
     facingRight = !facingRight; 
 }
 
@@ -150,7 +151,7 @@ function ChangeColor(r,g,b,a) {
     renderer.color = new Color(r,g,b,a);
 }
   
-//Get / Set
+//Get | Set
 function IncrementNumPlayerBlocks(valueObject) {
     var value = System.Convert.ToInt32(valueObject);
     numPlayerBlocks += value;
