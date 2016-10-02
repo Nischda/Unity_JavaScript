@@ -2,10 +2,15 @@
 
 private var facingRight = true;
 public var moveSpeed = 0f;
+public var startRight = false;
+
 var child: Transform;
 
-function Start () {
 
+function Start () {
+    if(startRight) {
+        Flip();
+    }
 }
 
 function Update () {

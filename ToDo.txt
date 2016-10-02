@@ -1,20 +1,16 @@
 CODE ENHANCEMENT
-Makepowerups change the string of the selected power up in playerbehavior
 Give Enemy public var hitPoints(Tag becomes "Stunned" if damage is applied)
 
 ENEMIES
 Add snail which moves along walls
-Add lavahill monster which moves up and down
 Add spiked enemy
 
 ENVIROMENT
-Add flying block (rounded ones)
+Add flying tiles (rounded ones)
 Add Buttontrigger which activate falling/swinging traps
-Add a spike challenge in which the player has to slide on a block over enemies.
 Add a falling block riddle
 Add destructable block
 
 POWER UPS
-Add partially spiked playerBlock and related power up
 Add gummy playerBlock and related power up
 Add exploding playerBlock and related power up

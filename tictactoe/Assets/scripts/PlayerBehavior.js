@@ -127,7 +127,7 @@ function GameOver() {
 }
 
 function OnCollisionEnter2D (coll : Collision2D) {
-    if (coll.gameObject.CompareTag("Ground") || coll.gameObject.CompareTag("PlayerBlock")) {
+    if (coll.gameObject.CompareTag("Ground") || coll.gameObject.CompareTag("PlayerBlock") || coll.gameObject.CompareTag("Obstacle")) {
         numJumps = 0;
         ChangeColor(1,1,1,1);
     }
