@@ -14,3 +14,6 @@ Add destructable block
 POWER UPS
 Add gummy playerBlock and related power up
 Add exploding playerBlock and related power up
+Add Bounciness powerup that switches PlayerMaterial, maybe even of the playerblocks
+
+Question: do i not 2d platform effector?
