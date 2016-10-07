@@ -21,6 +21,8 @@ var playerBlock_Static: Transform;
 var playerBlock_Flying: Transform;
 var playerBlock_Spiked: Transform;
 var flipScale : Vector3;
+var jumpMaterial: PhysicsMaterial2D;
+var walkMaterial: PhysicsMaterial2D;
 
 function Start () {
 
@@ -57,6 +59,7 @@ function Update () {
 
 //Actions
 function Jump() {
+    gameObject.GetComponent.<Collider2D>().sharedMaterial   = jumpMaterial;
     x = GetComponent(Rigidbody2D).velocity.x;
     GetComponent(Rigidbody2D).velocity = new Vector2(x, jumpHeight);
     animator.SetTrigger("OnJump");
@@ -130,6 +133,7 @@ function OnCollisionEnter2D (coll : Collision2D) {
     if (coll.gameObject.CompareTag("Ground") || coll.gameObject.CompareTag("PlayerBlock") || coll.gameObject.CompareTag("Obstacle")) {
         numJumps = 0;
         ChangeColor(1,1,1,1);
+        gameObject.GetComponent.<Collider2D>().sharedMaterial   = walkMaterial; //move check to save performance
     }
     if(coll.gameObject.CompareTag("Enemy") || coll.gameObject.CompareTag("GlobalDmg")) {
         ChangeColor(0.6, 0, 0, 1);
