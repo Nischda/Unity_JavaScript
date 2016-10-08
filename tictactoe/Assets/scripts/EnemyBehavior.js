@@ -31,13 +31,14 @@ function Update () {
         GetComponent(Rigidbody2D).velocity = new Vector2(moveSpeed, y);
     }
 } 
-
-function OnCollisionEnter2D (coll : Collision2D) {
-    if (!coll.gameObject.CompareTag("Ground")) {
+/* probalby move trigger into new child object and reference this via parent to to cast flip()
+function OnTriggerEnter2D(Other : Collider2D){
+    if (!Other.gameObject.CompareTag("Ground") && !Other.gameObject.CompareTag("PlayerSide") && !Other.gameObject.CompareTag("Untagged")) {
         Flip();
     }
 
 }
+*/
 
 function Flip() {
     var flipScale : Vector3;
@@ -53,15 +54,17 @@ function Flip() {
     facingRight = !facingRight; // facing opposite direction
 }
 
-function OnTriggerEnter2D(Other : Collider2D){
+function OnTriggerEnter2D (Other : Collider2D) {
      
-    if(Other.gameObject.tag == "Player" || Other.gameObject.tag == "GlobalDmg"){
-
+    if(Other.gameObject.tag == "PlayerBot" || Other.gameObject.tag == "GlobalDmg"){
         child.GetComponent(Animator).SetTrigger("OnHit");
         gameObject.tag = "Dead";
         yield WaitForSeconds (0.1);
         gameObject.GetComponent(BoxCollider2D).enabled=false;
         Destroy (gameObject, 1);
+    }
+    if (!Other.gameObject.CompareTag("Ground") && !Other.gameObject.CompareTag("PlayerSide") && !Other.gameObject.CompareTag("Untagged")) {
+        Flip();
     }
 
 }

@@ -11,7 +11,7 @@ function Update () {
 }
 
 function OnTriggerEnter2D(Other : Collider2D){
-    if(Other.gameObject.tag == "Player" || Other.gameObject.tag == "GlobalDmg"){
+    if(Other.gameObject.tag == "PlayerBot" || Other.gameObject.tag == "GlobalDmg"){
 
         child.GetComponent(Animator).SetTrigger("OnHit");
         gameObject.tag = "Dead";

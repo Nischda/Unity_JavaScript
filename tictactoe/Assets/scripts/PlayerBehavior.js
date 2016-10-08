@@ -86,6 +86,11 @@ function WalkRight() {
 function CanJump() {
     return numJumps < maxJumps;
 }
+function HitGround() {
+    numJumps = 0;
+    ChangeColor(1,1,1,1);
+    gameObject.GetComponent.<Collider2D>().sharedMaterial   = walkMaterial; //move check to save performance 
+}
 
 function SpawnBlock() {
 	var offset = facingRight ? 0.5 : -0.5;
@@ -129,34 +134,13 @@ function GameOver() {
     SceneManager.LoadScene("menu");
 }
 
-function OnCollisionEnter2D (coll : Collision2D) {
-    if (coll.gameObject.CompareTag("Ground") || coll.gameObject.CompareTag("PlayerBlock") || coll.gameObject.CompareTag("Obstacle")) {
-        numJumps = 0;
-        ChangeColor(1,1,1,1);
-        gameObject.GetComponent.<Collider2D>().sharedMaterial   = walkMaterial; //move check to save performance
-    }
-    if(coll.gameObject.CompareTag("Enemy") || coll.gameObject.CompareTag("GlobalDmg")) {
-        ChangeColor(0.6, 0, 0, 1);
-        Jump();
-
-        if (timeStamp <= Time.time) {
-            numHearts -=1;
-            Gui.DisplayHearts(numHearts);
-            Alive();
-            timeStamp = Time.time +1.5;
-        }
-    }
-    if(coll.gameObject.CompareTag("Monster")) {;
-        Jump();
-    }
-    if(coll.gameObject.CompareTag("Dead")) {;
-        Jump();
-    }
-}
-
 function ChangeColor(r,g,b,a) {
     var renderer = gameObject.GetComponent(SpriteRenderer); //somehow move into global variables or access component directly
     renderer.color = new Color(r,g,b,a);
+}
+function DamageFeedback(){
+    ChangeColor(0.6, 0, 0, 1);
+    Jump();
 }
   
 //Get | Set
@@ -164,4 +148,9 @@ function IncrementNumPlayerBlocks(valueObject) {
     var value = System.Convert.ToInt32(valueObject);
     numPlayerBlocks += value;
     Gui.DisplayPlayerBlocks(numPlayerBlocks);
+}
+function IncrementNumHearts(valueHearts) {
+    var value = System.Convert.ToInt32(valueHearts);
+    numHearts += value;
+    Gui.DisplayHearts(numHearts);
 }
