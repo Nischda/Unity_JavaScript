@@ -31,14 +31,6 @@ function Update () {
         GetComponent(Rigidbody2D).velocity = new Vector2(moveSpeed, y);
     }
 } 
-/* probalby move trigger into new child object and reference this via parent to to cast flip()
-function OnTriggerEnter2D(Other : Collider2D){
-    if (!Other.gameObject.CompareTag("Ground") && !Other.gameObject.CompareTag("PlayerSide") && !Other.gameObject.CompareTag("Untagged")) {
-        Flip();
-    }
-
-}
-*/
 
 function Flip() {
     var flipScale : Vector3;
@@ -63,8 +55,4 @@ function OnTriggerEnter2D (Other : Collider2D) {
         gameObject.GetComponent(BoxCollider2D).enabled=false;
         Destroy (gameObject, 1);
     }
-    if (!Other.gameObject.CompareTag("Ground") && !Other.gameObject.CompareTag("PlayerSide") && !Other.gameObject.CompareTag("Untagged")) {
-        Flip();
-    }
-
 }
